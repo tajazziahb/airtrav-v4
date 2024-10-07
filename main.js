@@ -1,15 +1,17 @@
-
+import {getPlans} from "./plans.js";
 
 const plansEl = document.querySelector('#posts');
 
 const API_URL = "https://eadbaafjveoawihuijpz.supabase.co/rest/v1"
-const API_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhZGJhYWZqdmVvYXdpaHVpanB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjYxNzk4MTIsImV4cCI6MjA0MTc1NTgxMn0.wV7DUkg9vLbo1wumRMHhIY25ZYSaD6DXP4hZrbpal_g
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhZGJhYWZqdmVvYXdpaHVpanB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjYxNzk4MTIsImV4cCI6MjA0MTc1NTgxMn0.wV7DUkg9vLbo1wumRMHhIY25ZYSaD6DXP4hZrbpal_g"
 
-fetch(`${API_URL}/travel_plans?select=*&apikey=${API_KEY}`)
-    .then(response => response.json())
+getPlans()
     .then (data => {
+        console.log(data)
+        data.forEach(item => console.log(item))
         data.forEach(item => showTravelPlans(item))
-    })
+})
+
 
 function showTravelPlans(item = {}) {
 
