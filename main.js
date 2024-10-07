@@ -7,8 +7,8 @@ const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsIn
 
 getPlans()
     .then (data => {
-        console.log(data)
-        data.forEach(item => console.log(item))
+        // console.log(data)
+        // data.forEach(item => console.log(item))
         data.forEach(item => showTravelPlans(item))
 })
 
