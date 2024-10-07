@@ -1,4 +1,5 @@
 import {getPlans} from "./plans.js";
+import {addPlan} from "./plans.js";
 
 const plansEl = document.querySelector('#posts');
 
@@ -7,8 +8,8 @@ const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsIn
 
 getPlans()
     .then (data => {
-        console.log(data)
-        data.forEach(item => console.log(item))
+        // console.log(data)
+        // data.forEach(item => console.log(item))
         data.forEach(item => showTravelPlans(item))
 })
 
@@ -32,3 +33,28 @@ function showTravelPlans(item = {}) {
 
   plansEl.appendChild(div);
 }
+
+document.querySelector('#add-plan').addEventListener('submit', async function(event){
+    event.preventDefault();
+    // console.log("works")
+
+    // Get the values from the form
+    const location = document.querySelector('#location').value;
+    // console.log(location);
+    const plan = document.querySelector('#plan').value;
+    // console.log(plan);
+    const date = document.querySelector('#trip-date').value;
+    // console.log(date);
+
+    const newPlan = {
+        location: location,
+        plan: plan,
+        date: date
+    }
+    console.log(newPlan);
+
+    // Call your function to add the plan
+    const response = await addPlan(newPlan);
+    console.log(response); // Log the result (either success or error)
+})
+
