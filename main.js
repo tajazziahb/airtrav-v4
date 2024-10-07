@@ -1,4 +1,5 @@
 import {getPlans} from "./plans.js";
+import {addPlan} from "./plans.js";
 
 const plansEl = document.querySelector('#posts');
 
@@ -32,3 +33,28 @@ function showTravelPlans(item = {}) {
 
   plansEl.appendChild(div);
 }
+
+document.querySelector('#add-plan').addEventListener('submit', async function(event){
+    event.preventDefault();
+    // console.log("works")
+
+    // Get the values from the form
+    const location = document.querySelector('#location').value;
+    // console.log(location);
+    const plan = document.querySelector('#plan').value;
+    // console.log(plan);
+    const date = document.querySelector('#trip-date').value;
+    // console.log(date);
+
+    const newPlan = {
+        location: location,
+        plan: plan,
+        date: date
+    }
+    console.log(newPlan);
+
+    // Call your function to add the plan
+    const response = await addPlan(newPlan);
+    console.log(response); // Log the result (either success or error)
+})
+

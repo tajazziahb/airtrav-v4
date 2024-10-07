@@ -37,3 +37,25 @@ export function deletePlan(id){
 export function updatePlan(id, content){
     return `updating plan with ${id}`
 }
+// Define the async function that adds a plan to your Supabase database
+export async function addPlan(newPlan = {}) {
+try {
+        // Insert the new plan into the "travel_plans" table
+        const {data, error} = await supabase
+        .from('travel_plans')
+        .insert(newPlan);  // Supabase expects an array of objects
+
+        // console.log(newPlan)
+
+        if (error) {
+            throw error; // throw error; // If there's an error, throw it so we can handle it later
+        }
+
+
+        return data; // If successful, return the data (the newly added post)
+
+    } catch (error) {
+        console.log("Error adding post:", error);
+        return {error: error.message }; // Return the error if something goes wrong
+    }
+}
