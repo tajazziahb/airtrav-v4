@@ -13,6 +13,10 @@ getPlans()
         data.forEach(item => showTravelPlans(item))
 })
 
+// **Minimum Viable Solution**, MVS (i.e.: the simplest "correct" thing that solves the problem)
+// When I click the delete button
+// I want it to log "this works, with the ID" in the console of my browser
+
 
 function showTravelPlans(item = {}) {
 
@@ -26,7 +30,7 @@ function showTravelPlans(item = {}) {
             <p>${item['plan']}</p>
             <div class="card-actions justify-end">
               <button class="btn btn-primary">Read More</button>
-              <button class="btn btn-error">Delete</button>
+              <button class="btn btn-error" onclick="handleDelete(${item['id']})">Delete</button>
             </div>
           </div>
         </div>
