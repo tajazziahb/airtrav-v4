@@ -2545,6 +2545,10 @@ html{
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+.outline{
+  outline-style: solid;
+}
+
 /* Add below line to include DaisyUI component styles */
 
 .hover\:bg-blue-500:hover{
