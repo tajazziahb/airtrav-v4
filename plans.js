@@ -58,4 +58,6 @@ try {
         console.log("Error adding post:", error);
         return {error: error.message }; // Return the error if something goes wrong
     }
+
+
 }

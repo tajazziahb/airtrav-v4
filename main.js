@@ -38,6 +38,9 @@ document.querySelector('#add-plan').addEventListener('submit', async function(ev
     event.preventDefault();
     // console.log("works")
 
+    const form = document.querySelector('#add-plan')
+    const submitButton = document.querySelector('#submit-button');
+
     // Get the values from the form
     const location = document.querySelector('#location').value;
     // console.log(location);
@@ -56,5 +59,16 @@ document.querySelector('#add-plan').addEventListener('submit', async function(ev
     // Call your function to add the plan
     const response = await addPlan(newPlan);
     console.log(response); // Log the result (either success or error)
+
+    try {
+        submitButton.disabled = true
+        await addPlan(newPlan)
+        form.reset()
+    } catch (error) {
+        console.error('Error adding post:', error)
+        alert('Error adding post:' + error.message)
+    }finally{
+        submitButton.disabled = false
+    }
 })
 
