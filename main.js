@@ -25,7 +25,8 @@ function showTravelPlans(item = {}) {
             <p class="text-gray-600">Destination: ${item['location']}</p>
             <p>${item['plan']}</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">View More</button>
+              <button class="btn btn-primary">Read More</button>
+              <button class="btn btn-error">Delete</button>
             </div>
           </div>
         </div>
