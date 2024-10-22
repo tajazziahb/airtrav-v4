@@ -30,12 +30,15 @@
         const confirmDelete = prompt(`Do you really want to delete Plan #${planId}. Enter "y" to delete`)
         // console.log(confirmDelete);
         if (confirmDelete === "y") {
-            // do the delete stuff
-            console.log(
-                deletePlan(planId)
-            )
-            alert(`Plan #${planId} is now deleted`)
-            window.location.reload()
+            deletePlan(planId)
+                .then(response => {
+                    if (!response.error) {
+                        alert(response.statusText)
+                        window.location.reload()
+                    } else {
+                        alert(`There was an ERROR!!!! Please try later!`)
+                    }
+                })
         } else {
             alert("OK. Delete canceled")
         }

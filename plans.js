@@ -11,7 +11,7 @@ export async function getPlans() {
     return data;
 }
 
-export async function addPlans(newPlans = {}){
+export async function addPlans(newPlans = {}) {
     // TODO: make this work (that is: when I click the submit plans, it adds a new plan to your supabase database) — ref: see my `prompt.md` file
     // uses the supabase library to add a new plan
     // return new plan if successfully
@@ -23,10 +23,24 @@ export async function addPlans(newPlans = {}){
  *
  * @param id
  */
-export function deletePlan(id){
-    return `deleting plan with ${id}`
+export async function deletePlan(id) {
+    try {
+        const response = await supabase
+            .from('travel_plans')
+            .delete()
+            .eq('id', id)
+        // return response
+        // {error: null, data: null, count: null, status: 204, statusText: ''}
+        // console.log(response)
+        if (response.error) {
+            return { error: response.error, statusText: null}
+        }
+        return { error: null, statusText: `${id} successfully deleted`}
+    } catch (e) {
+        console.error(`There was error: ${e.message}`)
+    }
+    // return `deleting plan with ${id}`
 }
-
 /**
  * Updates plan with ID
  *
