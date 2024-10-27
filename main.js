@@ -21,11 +21,12 @@ function showTravelPlans(item = {}) {
   div.innerHTML = `
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body">
-            <h3 class="card-title">${item['date']}</h3>
+            <h3 class="card-title">(${item['id']})${item['date']}</h3>
             <p class="text-gray-600">Destination: ${item['location']}</p>
             <p>${item['plan']}</p>
             <div class="card-actions justify-end">
-              <button class="btn btn-primary">View More</button>
+              <button class="btn btn-primary">Read More</button>
+              <button class="btn btn-error" onclick="handleDelete(${item['id']})">Delete</button>
             </div>
           </div>
         </div>

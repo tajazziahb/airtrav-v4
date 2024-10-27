@@ -5,8 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./src/output.css">
+     <style>
+        .btn-error {
+            background-color: #ff6f70;
+        }
+    </style>
 </head>
 <body class="bg-white h-screen">
+
+<script type="module">
+    import {deletePlan} from "./plans.js";
+    window.deletePlan = deletePlan
+</script>
+
+<script>
+    // when this function is used,
+    // it should accept the ID of the post
+
+    function handleDelete(planId) {
+
+        const confirmDelete = prompt(`Do you really want to delete Plan #${planId}. Enter "y" to delete`)
+
+        // console.log(confirmDelete);
+
+        if (confirmDelete === "y") {
+
+            deletePlan(planId)
+                .then(response => {
+
+                    if (!response.error) {
+                        alert(response.statusText)
+                        window.location.reload()
+                    } else {
+                        alert(`There was an ERROR!!!! Please try later!`)
+                    }
+                })
+        } else {
+            alert("OK. Delete canceled")
+        }
+    }
+</script>
 
 <!--  Nav Section-->
 <nav class="flex justify-between items-center px-6 py-4 shadow-md">
