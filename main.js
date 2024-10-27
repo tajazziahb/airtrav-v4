@@ -79,12 +79,17 @@ const plansEl = document.querySelector('#plans');
 const API_URL = "https://eadbaafjveoawihuijpz.supabase.co/rest/v1"
 const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhZGJhYWZqdmVvYXdpaHVpanB6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjYxNzk4MTIsImV4cCI6MjA0MTc1NTgxMn0.wV7DUkg9vLbo1wumRMHhIY25ZYSaD6DXP4hZrbpal_g"
 
-getPlans()
-    .then (data => {
-        // console.log(data)
-        // data.forEach(item => console.log(item))
-        data.forEach(item => showTravelPlans(item))
-})
+function loadPlans() {
+    getPlans()
+        .then(data => {
+            // console.log(data)
+            // data.forEach(item => console.log(item))
+            plansEl.innerHTML = ''; // Clear existing plans
+            data.forEach(item => showTravelPlans(item));
+        })
+}
+
+loadPlans();
 
 // **Minimum Viable Solution**, MVS (i.e.: the simplest "correct" thing that solves the problem)
 // When I click the delete button
@@ -93,9 +98,9 @@ getPlans()
 
 function showTravelPlans(item = {}) {
 
-  // console.log("works")
-  const div = document.createElement('div');
-  div.innerHTML = `
+    // console.log("works")
+    const div = document.createElement('div');
+    div.innerHTML = `
         <div class="card bg-base-100 shadow-xl">
           <div class="card-body">
             <h3 class="card-title">(${item['id']})${item['date']}</h3>
@@ -109,18 +114,18 @@ function showTravelPlans(item = {}) {
         </div>
     `
 
-  plansEl.appendChild(div);
+    plansEl.appendChild(div);
 }
 
-function handleDelete(){
+function handleDelete() {
 
 }
 
-document.querySelector('#add-plan').addEventListener('submit', async function(event){
+document.querySelector('#add-plan').addEventListener('submit', async function (event) {
     event.preventDefault();
     // console.log("works")
 
-    const form = document.querySelector('#add-plan')
+
     const submitButton = document.querySelector('#submit-button');
 
     // Get the values from the form
@@ -128,7 +133,7 @@ document.querySelector('#add-plan').addEventListener('submit', async function(ev
     // console.log(location);
     const plan = document.querySelector('#plan').value;
     // console.log(plan);
-    const date = document.querySelector('#trip-date').value;
+    const date = document.querySelector('#date').value;
     // console.log(date);
 
     const newPlan = {
@@ -142,16 +147,11 @@ document.querySelector('#add-plan').addEventListener('submit', async function(ev
     const response = await addPlan(newPlan);
     console.log(response); // Log the result (either success or error)
 
-    try {
-        submitButton.disabled = true
-        await addPlan(newPlan)
-        form.reset()
-    } catch (error) {
-        console.error('Error adding post:', error)
-        alert('Error adding post:' + error.message)
-    }finally{
-        submitButton.disabled = false
-    }
+    // Reset the form after adding the plan
+    event.target.reset();
+
+    // Reload plans to display the new one
+    loadPlans();
 })
 
 
