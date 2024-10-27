@@ -53,6 +53,7 @@ export async function deletePlan(id) {
 export function updatePlan(id, content){
     return `updating plan with ${id}`
 }
+
 // Define the async function that adds a plan to your Supabase database
 export async function addPlan(newPlan = {}) {
 try {
