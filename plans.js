@@ -23,8 +23,24 @@ export async function addPlans(newPlans = {}){
  *
  * @param id
  */
-export function deletePlan(id){
-    return `deleting plan with ${id}`
+export async function deletePlan(id) {
+    try {
+        const response = await supabase
+            .from('travel_plans')
+            .delete()
+            .eq('id', id)
+
+        // return response
+        // {error: null, data: null, count: null, status: 204, statusText: ''}
+        // console.log(response)
+        if (response.error) {
+            return { error: response.error, statusText: null}
+        }
+        return { error: null, statusText: `${id} successfully deleted`}
+    } catch (e) {
+        console.error(`There was error: ${e.message}`)
+    }
+    // return `deleting plan with ${id}`
 }
 
 /**
