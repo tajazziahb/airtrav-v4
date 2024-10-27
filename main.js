@@ -1,6 +1,79 @@
 import {getPlans} from "./plans.js";
 import {addPlan} from "./plans.js";
 
+// Project 5 v2
+// Fetch weather data from the OpenWeatherMap API for a default city (e.g., Boston)
+
+const searchButton = document.querySelector('#search-btn');
+const cityInput = document.querySelector('#city-input');
+const forecastUl = document.querySelector('#weather-cards');
+const apiKey = "a6f4a4af866600cddf344e0c6d164029";
+
+// Add an input field allowing users to change the city and update the forecast
+const getCity = () => {
+  const cityName = cityInput.value;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&exclude=hourly,minutely,alert,current&units=imperial`;
+
+  fetch(url)
+    .then(function (response) {
+      return response.json()
+    })
+    .then(function (data) {
+
+      // console.log(data.list)
+      // console.log(data.list[0])
+      // console.log(data.list[0].dt_txt)
+      // console.log(data.list[0].main.temp_min)
+      // console.log(data.list[0].main.temp_max)
+      // console.log(data.list[0].weather[0].description)
+
+      const myNewData = data.list.filter(function (item) {
+        // console.log(item.dt_txt)
+        // console.log(item.dt_txt.includes("15:00:00"))
+
+        return item.dt_txt.includes("15:00:00")
+      })
+      console.log(data.list)
+      console.log(myNewData)
+
+      forecastUl.innerHTML = ""
+
+      myNewData.forEach(function (item) {
+
+        // console.log(data.list[0])
+        // console.log(data.list[0].dt_txt)
+        // console.log(data.list[0].main.temp_min)
+        // console.log(data.list[0].main.temp_max)
+        // console.log(data.list[0].weather[0].description)
+        // console.log(data.list[0].weather[0].icon)
+
+        //Display the weather forecast for the next 4 days, including: Date, Weather icon, Temperature (high and low),Brief description (e.g., "Partly cloudy")
+
+        const li = document.createElement('li')
+        li.innerHTML =
+          `
+            <p class="bg-sky-300 text-white p-4 rounded-t-lg">${item.dt_txt}</p>
+            <p class=" bg-sky-300 text-white p-4">High: ${item.main.temp_max}</p>
+            <p class=" bg-sky-300 text-white p-4">Low: ${item.main.temp_min}</p>
+			<img class=" bg-sky-300 text-white p-4 " max-w-70 m-2" src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="weather-icon">
+			<p class="bg-sky-300 text-white p-4 flex gap-10 rounded-b-lg">${item.weather[0].description}</p>
+          `
+        forecastUl.appendChild(li)
+
+      })
+    })
+}
+
+searchButton.addEventListener("click", getCity);
+
+
+// Project 6 v3
+// Add a form to input new travel plans (date, location, plan)
+// Create a function to insert new plans into the Supabase table
+// Fetch and display existing travel plans from Supabase
+// Use forEach and/or filter to organize and display the plans
+// Add the ability to delete or update existing plans
+
 const plansEl = document.querySelector('#plans');
 
 const API_URL = "https://eadbaafjveoawihuijpz.supabase.co/rest/v1"
@@ -37,6 +110,10 @@ function showTravelPlans(item = {}) {
     `
 
   plansEl.appendChild(div);
+}
+
+function handleDelete(){
+
 }
 
 document.querySelector('#add-plan').addEventListener('submit', async function(event){
@@ -76,4 +153,5 @@ document.querySelector('#add-plan').addEventListener('submit', async function(ev
         submitButton.disabled = false
     }
 })
+
 
